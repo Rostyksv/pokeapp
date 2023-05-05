@@ -4,7 +4,7 @@ import Table from "../elements/table/table";
 
 function Card({ poke }) {
     const { name, spriteUrl, types, stats, weight, totalMoves } = poke || {};
-
+console.log(poke, 'p')
     const tableData = stats ? [...stats?.map(stat => ({ name: stat.stat.name, value: stat.base_stat })), { name: 'Weight', value: weight }, { name: 'Total moves', value: totalMoves }] : [];
 
     return (
