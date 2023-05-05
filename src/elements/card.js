@@ -1,10 +1,10 @@
 import React from 'react';
-import Type from "../elements/type";
-import Table from "../elements/table/table";
+import Type from "./type";
+import Table from "./table/table";
 
 function Card({ poke }) {
     const { name, spriteUrl, types, stats, weight, totalMoves } = poke || {};
-console.log(poke, 'p')
+
     const tableData = stats ? [...stats?.map(stat => ({ name: stat.stat.name, value: stat.base_stat })), { name: 'Weight', value: weight }, { name: 'Total moves', value: totalMoves }] : [];
 
     return (

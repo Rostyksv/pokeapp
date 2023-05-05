@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import './App.css';
-import Card from "./components/card";
+import Card from "./elements/card";
 import Button from "./elements/button";
+import Items from "./elements/Items";
 
 function App() {
     const [pokeList, setPokeList] = useState([]);
@@ -11,6 +12,7 @@ function App() {
 
 
     useEffect(() => {
+        setLoading(true);
         fetch(`https://pokeapi.co/api/v2/pokemon?limit=12&offset=${offset}`)
             .then((response) => {
                 if (response.ok) {
@@ -47,7 +49,7 @@ function App() {
             .finally(() => setLoading(false));
     }, [offset]);
 
-    const handleClick = async (poke) => {
+    const handleClick = useCallback(async (poke) => {
         try {
             setLoading(true);
             const res = await fetch(poke.url);
@@ -70,7 +72,7 @@ function App() {
         } finally {
             setLoading(false);
         }
-    }
+    }, [pokeList]);
 
     const handleLoadMore = () => {
         setOffset(prev => prev+12);
@@ -85,12 +87,13 @@ function App() {
             <div className='flex justify-center mb-8'>
                 <h2 className='p-4 w-full max-w-2xl text-5xl text-center border-2 border-black font-semibold'>Pokedex</h2>
             </div>
-            <div className='flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-16'>
+            <div className='flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-16 justify-center '>
                 <div className='max-w-2xl '>
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8'>
-                        {pokeList && pokeList.map(poke => <div className='flex md:block cursor-pointer' key={poke.id} onClick={() => handleClick(poke)}><Card poke={poke} /></div>)}
-                    </div>
-                    <Button handleClick={handleLoadMore} loading={loading} />
+                    {/*<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8'>*/}
+                    {/*    {pokeList && pokeList.map(poke => <div className='flex md:block cursor-pointer' key={poke.id} onClick={() => handleClick(poke)}><Card poke={poke} /></div>)}*/}
+                    {/*</div>*/}
+                    <Items pokeList={pokeList} handleClick={handleClick} />
+                    {pokeList && <Button handleClick={handleLoadMore} loading={loading} />}
                 </div>
                 {selectedPoke && <div className='flex items-center'><Card poke={selectedPoke} /></div>}
             </div>
