@@ -88,10 +88,7 @@ function App() {
                 <h2 className='p-4 w-full max-w-2xl text-5xl text-center border-2 border-black font-semibold'>Pokedex</h2>
             </div>
             <div className='flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-16 justify-center '>
-                <div className='max-w-2xl '>
-                    {/*<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8'>*/}
-                    {/*    {pokeList && pokeList.map(poke => <div className='flex md:block cursor-pointer' key={poke.id} onClick={() => handleClick(poke)}><Card poke={poke} /></div>)}*/}
-                    {/*</div>*/}
+                <div className='max-w-2xl'>
                     <Items pokeList={pokeList} handleClick={handleClick} />
                     {pokeList && <Button handleClick={handleLoadMore} loading={loading} />}
                 </div>
